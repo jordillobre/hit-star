@@ -1,0 +1,20 @@
+{
+    "Canciones":[
+        {
+            "RutaCaratula": "caratula/caratula1",
+            "Titulo": "Nombre canción 1",
+            "Año": 2016,
+            "Autor": "Grupo / Cantante o Compositor Canción 1",
+            "RutaCancion": "cancion/cancion1",
+            "Pelicula": "Pelicula 1"
+        },
+        {
+            "RutaCaratula": "caratula/caratula2",
+            "Titulo": "Nombre canción 2",
+            "Año": 2019,
+            "Autor": "Grupo / Cantante o Compositor Canción 1",
+            "RutaCancion": "cancion/cancion2",
+            "Pelicula": ""
+        }
+    ]
+}

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6ab03a07d3187504fbb373816a62bf65
+guid: b9c0002846560cc499741821ea4a3f02
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3686888737945642462
-    second: icono_0
+      213: 5101628830431153349
+    second: hit-star-background_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,29 +109,16 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: icono_0
+      name: hit-star-background_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
+        width: 1536
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -141,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ed563afe5c57a2330800000000000000
-      internalID: 3686888737945642462
+      spriteID: 5cc8db54460acc640800000000000000
+      internalID: 5101628830431153349
       vertices: []
       indices: 
       edges: []
@@ -161,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      icono_0: 3686888737945642462
+      hit-star-background_0: 5101628830431153349
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

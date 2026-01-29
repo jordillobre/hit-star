@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 
 public class gestorCanciones : MonoBehaviour
 {
+    [Header("Información de la canción")]
     public Text textInterprete;
     public Text textAño;
     public Text textPelicula;
@@ -15,29 +16,31 @@ public class gestorCanciones : MonoBehaviour
 
     public Image imageCaratula;
 
+    [Header("Controlador de sonido")]
     public AudioSource audioSource;
     public Slider volumeSlider;
 
+    [Header("Canciones")]
     public listaCanciones listaCanciones;
     private int cancionActual = 0;
 
-    public GameObject canvasPuntuacion; // Canvas para puntuaciones
-    public GameObject canvasJuego; // Canvas del juego
-    public GameObject canvasResultado; // Canvas del juego
+    [Header("Apartados canvas")]
+    public GameObject canvasPuntuacion;
+    public GameObject canvasJuego;
+    public GameObject canvasResultado;
 
-    public Text textJugadorActual; // Texto que muestra el jugador actual (asignar en inspector)
+    public Text textJugadorActual; 
     private int numJugadores;
     private int[] puntuaciones;
     private int jugadorActual = 0;
     private float volumenInicial = 50f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         string json = Resources.Load<TextAsset>("listadoCanciones").text;
         listaCanciones = JsonUtility.FromJson<listaCanciones>(json);
 
-        volumeSlider.value = volumenInicial / 100f; // Si volumenInicial es de 0 a 100, slider debe ser 0.0 - 1.0
-        audioSource.volume = volumeSlider.value;    // Asigna el volumen inicial también al AudioSource
+        volumeSlider.value = volumenInicial / 100f; 
+        audioSource.volume = volumeSlider.value;
 
         volumeSlider.onValueChanged.AddListener(delegate { audioSource.volume = volumeSlider.value; });
 
@@ -45,13 +48,13 @@ public class gestorCanciones : MonoBehaviour
         canvasJuego.SetActive(true);
         canvasResultado.SetActive(false);
 
-        numJugadores = PlayerPrefs.GetInt("numJugadores", 2); // Por defecto 2 si no se definió antes
-        puntuaciones = new int[numJugadores]; // Inicializa a 0
+        numJugadores = PlayerPrefs.GetInt("numJugadores", 2);
+        puntuaciones = new int[numJugadores];
 
-        cargarCancion();
+        CargarCancion();
     }
 
-    void cargarCancion()
+    void CargarCancion()
     {
         if (cancionActual < listaCanciones.Canciones.Length)
         {
@@ -79,7 +82,7 @@ public class gestorCanciones : MonoBehaviour
             imageCaratula.sprite = Resources.Load<Sprite>("canciones/" + c.RutaCaratula);
             audioSource.clip = Resources.Load<AudioClip>("canciones/" + c.RutaCancion);
 
-            audioSource.Stop(); // asegura que la nueva canción no suena aún
+            audioSource.Stop();
         }
         else
         {
@@ -87,62 +90,62 @@ public class gestorCanciones : MonoBehaviour
         }
     }
 
-    public void pauseSong()
+    public void PauseSong()
     {
         if (audioSource.isPlaying)
             audioSource.Pause();
     }
 
-    public void playSong()
+    public void PlaySong()
     {
         if (audioSource.clip != null)
             audioSource.Play();
     }
 
-    public void contesta()
+    public void Contesta()
     {
         audioSource.Stop();
-        jugadorActual = 0; // Reset para cada ronda de puntuación
+        jugadorActual = 0;
         canvasJuego.SetActive(false);
         canvasPuntuacion.SetActive(true);
         textJugadorActual.text = "Jugador " + (jugadorActual + 1);
     }
-    public void añadir1Punto()
+    public void Añadir1Punto()
     {
         puntuaciones[jugadorActual] += 1;
-        cambiarJugador();
+        CambiarJugador();
     }
-    public void añadir2Punto()
+    public void Añadir2Punto()
     {
         puntuaciones[jugadorActual] += 2;
-        cambiarJugador();
+        CambiarJugador();
     }
-    public void añadir3Punto()
+    public void Añadir3Punto()
     {
         puntuaciones[jugadorActual] += 3;
-        cambiarJugador();
+        CambiarJugador();
     }
-    public void añadir4Punto()
+    public void Añadir4Punto()
     {
         puntuaciones[jugadorActual] += 4;
-        cambiarJugador();
+        CambiarJugador();
     }
-    public void añadir5Punto()
+    public void Añadir5Punto()
     {
         puntuaciones[jugadorActual] += 5;
-        cambiarJugador();
+        CambiarJugador();
     }
     public void sinPuntos()
     {
-        cambiarJugador();
+        CambiarJugador();
     }
-    public void cambiarJugador()
+    public void CambiarJugador()
     {
-        jugadorActual++; // ¡falta esta línea!
+        jugadorActual++;
 
         if (jugadorActual >= numJugadores)
         {
-            mostrarResultados();
+            MostrarResultados();
         }
         else
         {
@@ -150,25 +153,25 @@ public class gestorCanciones : MonoBehaviour
         }
     }
 
-    public void mostrarResultados()
+    public void MostrarResultados()
     {
         canvasPuntuacion.SetActive(false);
         canvasResultado.SetActive(true);
-        textoResultados.text = ""; // Limpiar antes de mostrar resultados
+        textoResultados.text = "";
         for (int i = 0; i < numJugadores; i++)
         {
             textoResultados.text += "La puntuación del jugador " + (i + 1) + " es: " + puntuaciones[i] + " puntos\n";
         }
     }
 
-    public void cerrarResultado()
+    public void CerrarResultado()
     {
         canvasResultado.SetActive(false);
 
         cancionActual++;
         if (cancionActual < listaCanciones.Canciones.Length)
         {
-            cargarCancion(); // carga pero NO reproduce
+            CargarCancion();
             canvasJuego.SetActive(true);
         }
         else
@@ -180,7 +183,6 @@ public class gestorCanciones : MonoBehaviour
             PlayerPrefs.SetInt("numJugadores", puntuaciones.Length);
             PlayerPrefs.Save();
 
-            // Cargar escena de ranking final
             SceneManager.LoadScene("PantallaFinal");
         }
     }

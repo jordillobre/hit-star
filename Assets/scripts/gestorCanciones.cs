@@ -108,7 +108,8 @@ public class gestorCanciones : MonoBehaviour
         jugadorActual = 0;
         canvasJuego.SetActive(false);
         canvasPuntuacion.SetActive(true);
-        textJugadorActual.text = "Jugador " + (jugadorActual + 1);
+        string nombre = PlayerPrefs.GetString("NombreEquipo_" + jugadorActual, "Jugador " + (jugadorActual + 1));
+        textJugadorActual.text = "Turno de: " + nombre;
     }
     public void Añadir1Punto()
     {
@@ -142,14 +143,15 @@ public class gestorCanciones : MonoBehaviour
     public void CambiarJugador()
     {
         jugadorActual++;
-
         if (jugadorActual >= numJugadores)
         {
             MostrarResultados();
         }
         else
         {
-            textJugadorActual.text = "Jugador " + (jugadorActual + 1);
+            // RECUPERAR NOMBRE
+            string nombre = PlayerPrefs.GetString("NombreEquipo_" + jugadorActual, "Jugador " + (jugadorActual + 1));
+            textJugadorActual.text = "Turno de: " + nombre;
         }
     }
 
@@ -160,7 +162,8 @@ public class gestorCanciones : MonoBehaviour
         textoResultados.text = "";
         for (int i = 0; i < numJugadores; i++)
         {
-            textoResultados.text += "La puntuación del jugador " + (i + 1) + " es: " + puntuaciones[i] + " puntos\n";
+            string nombre = PlayerPrefs.GetString("NombreEquipo_" + i, "Jugador " + (i + 1));
+            textoResultados.text += nombre + ": " + puntuaciones[i] + " puntos\n";
         }
     }
 

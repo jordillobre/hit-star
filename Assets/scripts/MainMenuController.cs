@@ -18,6 +18,7 @@ public class MainMenuController : MonoBehaviour
     public TMP_InputField numJugadores;
     private int totalJugadores;
     private int equipoActual = 0;
+    public Button botonValidarNum;
 
     [Header("Asignación nombre a los jugadores")]
     public TMP_InputField inputNombreEquipo;
@@ -37,6 +38,9 @@ public class MainMenuController : MonoBehaviour
 
     public void Empezar(){
         CambiarCanva(canvaInicio, canvaJugadores);
+    }
+
+    public void ValidarNumJugadores(){
         if (string.IsNullOrEmpty(numJugadores.text))
         {
             Debug.LogWarning("Introduce un número de jugadores.");
@@ -44,11 +48,11 @@ public class MainMenuController : MonoBehaviour
         }
 
         int jugadores;
-        if (int.TryParse(numJugadores.text, out jugadores))
+        if (int.TryParse(numJugadores.text, out jugadores) && jugadores > 0)
         {
-            PlayerPrefs.SetInt("numJugadores", totalJugadores);
-            equipoActual = 0;
-            AsignarNombres();
+            totalJugadores = jugadores;
+            equipoActual = 0; // importante resetearlo aquí
+            AsignarNombres(); // 🔧 Desde aquí arranca el bucle de nombres
         }
         else
         {
@@ -57,9 +61,7 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void AsignarNombres(){
-        Debug.LogWarning("Vamos a poner nombre a estos equipos");
-        if (equipoActual < totalJugadores)
-        {
+    if (equipoActual < totalJugadores){
             CambiarCanva(canvaJugadores, canvaNombres);
             inputNombreEquipo.text = "";
             textoIndicadorEquipo.text = "Introduce el nombre para el Equipo " + (equipoActual + 1);
@@ -69,16 +71,17 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.Save();
             CambiarCanva(canvaNombres, canvaCategorias);
         }
-    }
-    public void GuardarNombreYContinuar()
-    {
+    }  
+
+    public void GuardarNombreYContinuar(){
         string nombre = string.IsNullOrEmpty(inputNombreEquipo.text) ? 
                         "Equipo " + (equipoActual + 1) : inputNombreEquipo.text;
         
         PlayerPrefs.SetString("NombreEquipo_" + equipoActual, nombre);
         equipoActual++;
-        AsignarNombres();
-    }
+        AsignarNombres(); // vuelve a AsignarNombres hasta completar todos los equipos
+    } 
+
 
     public void CambiarCanva(GameObject canvaOcultar, GameObject canvaMostrar){
         if(canvaOcultar != null) canvaOcultar.SetActive(false);
@@ -100,6 +103,5 @@ public class MainMenuController : MonoBehaviour
     public void CerrarJuego(){
         Application.Quit();
     }
-
 
 }

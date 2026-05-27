@@ -13,6 +13,8 @@ public class MainMenuController : MonoBehaviour
     public GameObject canvaNombres;
     public GameObject canvaCategorias;
     public GameObject canvaOpciones;
+    public GameObject canvaInstrucciones;
+    public GameObject canvaCanciones;
 
     [Header("Creación numero de jugadores")]
     public TMP_InputField numJugadores;
@@ -98,6 +100,18 @@ public class MainMenuController : MonoBehaviour
 
     public void CerrarOpciones(){
         CambiarCanva(canvaOpciones, canvaInicio);
+    }
+    public void VerInstrucciones(){
+        CambiarCanva(canvaInicio, canvaInstrucciones);
+    }
+    public void CerrarInstrucciones(){
+        CambiarCanva(canvaInstrucciones, canvaInicio);
+    }
+    public void VerCanciones(){
+        CambiarCanva(canvaInicio, canvaCanciones);
+    }
+    public void CerrarCanciones(){
+        CambiarCanva(canvaCanciones, canvaInicio);
     }
 
     public void CerrarJuego(){
